@@ -2,6 +2,7 @@
 #include <iostream>
 #include "utility.hpp"
 using namespace std;
+using namespace ft;
 
 typedef pair<int, char> Pair_ic;
 Pair_ic p0;
