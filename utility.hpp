@@ -27,9 +27,9 @@ template<class T1, class T2> struct pair {
 
     //pair TEMPLATE OPERATORS
     template<class T1, class T2> inline
-        bool operator==(const pair<T1, T2>& X,
+        bool operator ==(const pair<T1, T2>& X,
             const pair<T1, T2>& Y)
-            {return (X.first == Y.first && X.second == Y.srcond); }
+            {return (X.first == Y.first && X.second == Y.second); }
 
     template<class T1, class T2> inline
         bool operator!=(const pair<T1, T2>& X,

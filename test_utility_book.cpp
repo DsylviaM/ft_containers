@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <iostream>
 #include "utility.hpp"
-using namespace std;
+using namespace ft;
 
 typedef pair<int, char> Pair_ic;
 Pair_ic p0;
@@ -32,7 +32,7 @@ int main()
         (Pair_ic::second_type) 'a'));
     assert (p2 < make_pair ( (Pair_ic::first_type) 3,
         (Pair_ic::second_type) 'b'));
-    assert(p1 !=p2);
+    assert(p1 != p2);
     assert(p2 > p1);
     assert(p2 <= p2);
     assert(p2 >= p2);
@@ -45,6 +45,6 @@ int main()
     assert (b > a);
     assert (a <= b);
     assert (b >= a);
-    cout << "SUCCESS testing <utility" <<endl;
+    std::cout << "SUCCESS testing <utility" <<std::endl;
     return(0);
 };
