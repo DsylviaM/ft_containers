@@ -3,9 +3,6 @@
 #include <cstddef>
 
 namespace ft{
-
-    //struct int_iterator_tag;
-
     template <typename C, typename T, typename Dist = std::ptrdiff_t, typename Pt = T*, typename Rf = T&>
     struct iterator {
         typedef C iterator_category;
@@ -24,6 +21,7 @@ namespace ft{
         : public forward_iterator_tag { };
     struct random_access_iterator_tag 
          : public bidirectional_iterator_tag { };
+    struct int_iterator_tag;
     
     // Iterator traits
     template <class Iterator>

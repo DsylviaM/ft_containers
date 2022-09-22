@@ -5,7 +5,12 @@
 #include <iostream>
 
 //TEMPLATE FUNCTION Iter_cat (шаблонная функция Iter_cat)
-namespace ft {
+//iterator+iterator_trains from iterator
+
+template<class Tag, class Dist, class Pt, class Rt>
+    struct Bidit : 
+
+/*namespace ft {
 
 template <
     typename _iterTag,
@@ -93,6 +98,6 @@ int_iterator_tag    Iter_cat(unsigned long) {
     return (obj);
 }
 
-}
+}*/
 
 #endif
