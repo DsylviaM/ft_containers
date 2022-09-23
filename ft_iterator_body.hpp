@@ -23,7 +23,6 @@ struct iterator_base {
 };
 
 
-
 // output_iterator_tag
 
 struct Outit : public iterator_base < ::ft::output_iterator_tag, void, void, void,void> {};
