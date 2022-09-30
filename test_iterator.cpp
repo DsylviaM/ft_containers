@@ -7,7 +7,7 @@ class Range {
 public:
     // member typedefs provided through inheriting from std::iterator
     class iterator: public ft::iterator<
-                        std::input_iterator_tag,   // iterator_category
+                        ft::input_iterator_tag,   // iterator_category
                         long,                      // value_type
                         long,                      // difference_type
                         const long*,               // pointer
