@@ -1,5 +1,5 @@
-#ifndef PTRIT_ITERATOR.HPP
-#define PTRIT_ITERATOR
+#ifndef REVERS_ITERATOR_HPP
+#define REVERS_ITERATOR_HPP
 
 #include "ft_iterator_body.hpp"
 #include "ft_iterator.hpp"
@@ -33,7 +33,7 @@
                         typename iterator_traits<_Iterator>::pointer,
                         typename iterator_traits<_Iterator>::reference>
      {
-      typedef iterator_traits<_Iterator> _traits_type
+      typedef iterator_traits<_Iterator> _traits_type;
 
      protected:
        _Iterator current;
