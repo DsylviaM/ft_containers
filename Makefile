@@ -1,6 +1,6 @@
 NAME	=	ft
-SRCS	=	test_iterator.cpp
-INCLUDE	=	ft_iterator.hpp ft_iterator_cat.hpp ft_iterator_body.hpp
+SRCS	=	test_it.cpp
+INCLUDE	=	ft_iterator.hpp ft_iterator_cat.hpp ft_iterator_body.hpp ft_revers_it.hpp
 OBJS	=	$(SRCS:.cpp=.o)
 CC		= 	c++
 RM		=	rm -rf
