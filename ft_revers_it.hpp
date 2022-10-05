@@ -24,23 +24,28 @@
 *  semantics make sense, however, and the trickiness is a side effect of
 *  the requirement that the iterators must be safe.
  */
+ namespace ft {
    template<typename _Iterator>
-     class reverse_iterator
-     : public iterator<typename iterator_traits<_Iterator>::iterator_category,
-               typename iterator_traits<_Iterator>::value_type,
-               typename iterator_traits<_Iterator>::difference_type,
-               typename iterator_traits<_Iterator>::pointer,
-                       typename iterator_traits<_Iterator>::reference>
+     class reverse_iterator : public iterator <
+                        typename iterator_traits<_Iterator>::iterator_category,
+                        typename iterator_traits<_Iterator>::value_type,
+                        typename iterator_traits<_Iterator>::difference_type,
+                        typename iterator_traits<_Iterator>::pointer,
+                        typename iterator_traits<_Iterator>::reference>
      {
+      typedef iterator_traits<_Iterator> _traits_type
+
      protected:
        _Iterator current;
  
      public:
-       typedef _Iterator                        iterator_type;
-       typedef typename iterator_traits<_Iterator>::difference_type
-                                    difference_type;
-       typedef typename iterator_traits<_Iterator>::reference   reference;
-      typedef typename iterator_traits<_Iterator>::pointer     pointer;
+      typedef _Iterator                                 iterator_type;
+      typedef typename _traits_type::iterator_category  iterator_category;
+      typedef typename _traits_type::value_type         value_type;
+      typedef typename _traits_type::difference_type    difference_type;
+      typedef typename _traits_type::pointer            pointer;
+      typedef typename _traits_type::reference          reference;
+    
  
      public:
        /**
@@ -78,11 +83,6 @@
        base() const
        { return current; }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reference
        operator*() const
        {
@@ -90,20 +90,10 @@
      return *--__tmp;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        pointer
        operator->() const
        { return &(operator*()); }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator&
        operator++()
        {
@@ -111,11 +101,6 @@
      return *this;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator
        operator++(int)
        {
@@ -124,11 +109,6 @@
      return __tmp;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator&
        operator--()
        {
@@ -136,11 +116,6 @@
      return *this;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator
        operator--(int)
        {
@@ -149,20 +124,10 @@
      return __tmp;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator
        operator+(difference_type __n) const
        { return reverse_iterator(current - __n); }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator&
        operator+=(difference_type __n)
        {
@@ -170,20 +135,10 @@
      return *this;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator
        operator-(difference_type __n) const
        { return reverse_iterator(current + __n); }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reverse_iterator&
        operator-=(difference_type __n)
        {
@@ -191,11 +146,6 @@
      return *this;
        }
  
-       /**
-        *  @return  TODO
-        *
-        *  @doctodo
-       */
        reference
        operator[](difference_type __n) const
        { return *(*this + __n); }
@@ -261,6 +211,7 @@
  
    // _GLIBCXX_RESOLVE_LIB_DEFECTS
    // DR 280. Comparison of reverse_iterator to const reverse_iterator.
+   // Non-member comparison overloads 
    template<typename _IteratorL, typename _IteratorR>
      inline bool
      operator==(const reverse_iterator<_IteratorL>& __x,
@@ -302,9 +253,6 @@
      operator-(const reverse_iterator<_IteratorL>& __x,
            const reverse_iterator<_IteratorR>& __y)
      { return __y.base() - __x.base(); }
-   //@}
+ }
  
-
-
-
 #endif
