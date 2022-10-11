@@ -1,6 +1,7 @@
 #ifndef LEXICOGRAPHICAL_COMPARE_HPP
 #define LEXICOGRAPHICAL_COMPARE_HPP
 
+//https://en.cppreference.com/w/cpp/algorithm/lexicographical_compare
 namespace ft {
 template<class InputIt1, class InputIt2>
 bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
