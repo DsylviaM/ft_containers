@@ -7,7 +7,7 @@
 #include <sstream>
 
 //#include "is_integral.hpp"
-//#include "normal_iterator.hpp"
+#include "ft_normal_iterator.hpp"
 #include "ft_revers_it.hpp"
 #include "ft_lexicographical_compare.hpp"
 
