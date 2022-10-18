@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iterator>
-#include "ft_iterator.hpp"
-#include "ft_iterator_cat.hpp"
-#include "ft_iterator_body.hpp"
-#include "ft_revers_it.hpp"
+#include "../src/iterator.hpp"
+#include "../src/iterator_cat.hpp"
+#include "../src/iterator_body.hpp"
+#include "../src/revers_it.hpp"
 
 void check_iterators();
 

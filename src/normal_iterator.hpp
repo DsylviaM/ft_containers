@@ -1,9 +1,9 @@
 #ifndef NORMAL_ITERATOR_HPP
 #define NORMAL_ITERATOR_HPP
 
-#include "ft_iterator.hpp"
-#include "ft_iterator_body.hpp"
-#include "ft_enable_if.hpp"
+#include "iterator.hpp"
+#include "iterator_body.hpp"
+#include "enable_if.hpp"
 
 namespace ft {
 
@@ -33,8 +33,7 @@ namespace ft {
         template<typename Iter>
         normal_iterator(
             const normal_iterator<Iter, 
-		            typename enable_if< 
-                                is_same<
+		            typename enable_if< is_same<
                                     Iter, typename Container::pointer> ::value, Container>::type> &iter)
         : _current(iter.base()) { }
 
@@ -203,3 +202,5 @@ namespace ft {
     }
 
 }
+
+#endif

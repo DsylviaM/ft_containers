@@ -1,8 +1,8 @@
 #ifndef ITERATOR_CAT_HPP
 #define ITERATOR_CAT_HPP
 
-#include "ft_iterator.hpp"
-#include "ft_iterator_body.hpp"
+#include "iterator.hpp"
+#include "iterator_body.hpp"
 #include <iostream>
 
 //TEMPLATE FUNCTION Iter_cat (шаблонная функция Iter_cat)

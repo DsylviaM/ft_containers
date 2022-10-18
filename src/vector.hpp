@@ -6,9 +6,9 @@
 #include <iostream>
 #include <sstream>
 
-#include "is_integral.hpp"
-#include "ft_normal_iterator.hpp"
-#include "reverse_iterator.hpp"
+//#include "is_integral.hpp"
+#include "normal_iterator.hpp"
+#include "revers_it.hpp"
 #include "lexicographical_compare.hpp"
 
 namespace ft {
@@ -34,9 +34,9 @@ public:
 
 private:
     allocator_type     _alloc;
-    pointer            _beg;
-    pointer            _data_end;
-    pointer            _storage_end;
+    pointer            _beg;//start
+    pointer            _data_end;//finish
+    pointer            _storage_end;//end_of_storage
 
 public:
     explicit vector(const allocator_type &alloc = allocator_type());
@@ -716,7 +716,6 @@ swap(vector<T, Alloc> &a, vector<T, Alloc> &b) {
     a.swap(b);
 }
 
-};
 }
 
 #endif

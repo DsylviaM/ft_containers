@@ -1,9 +1,9 @@
 #ifndef IT_DISTANCE_HPP
 #define IT_DISTANCE_HPP
 
-#include "ft_iterator_body.hpp"
-#include "ft_iterator.hpp"
-#include "ft_iterator_cat.hpp"
+#include "iterator_body.hpp"
+#include "iterator.hpp"
+#include "iterator_cat.hpp"
 
 //page 118 book "The C++ Standart Template Library"
 
