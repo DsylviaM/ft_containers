@@ -1,7 +1,7 @@
 #ifndef IS_INTEGRAL_HPP
 #define IS_INTEGRAL_HPP
 
-//#include <type_traits>
+#include <type_traits>
 
 //https://runebook.dev/ru/docs/cpp/types/is_integral
 
@@ -25,67 +25,99 @@ namespace ft {
     // The type used as a compile-time boolean with false value.
     typedef integral_constant<bool, false>    integral_false_type;
 
-	template<typename>
-	struct __is_integral__
-	: public integral_false_type { };
+	template <typename>
+struct is_integral
+    : public integral_false_type {};
 
-	template<>
-	struct __is_integral__<bool>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<char>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<signed char>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<unsigned char>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<short>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<unsigned short>
-	: public integral_true_type { };
-
-	template<>
-	struct __is_integral__<wchar_t>
+template <>
+struct is_integral<bool>
     : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<int>
-	: public integral_true_type { };
+template <>
+struct is_integral<char>
+    : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<unsigned int>
-	: public integral_true_type { };
+template <>
+struct is_integral<unsigned short>
+    : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<long>
-	: public integral_true_type { };
+template <>
+struct is_integral<unsigned int>
+    : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<unsigned long>
-	: public integral_true_type { };
+template <>
+struct is_integral<wchar_t>
+    : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<long long>
-	: public integral_true_type { };
+template <>
+struct is_integral<signed char>
+    : public integral_true_type {};
 
-	template<>
-	struct __is_integral__<unsigned long long>
-	: public integral_true_type { };
+template <>
+struct is_integral<short>
+    : public integral_true_type {};
 
-	template<typename T>
-	struct is_integral
-	: public __is_integral__<typename remove_cv<T>::type>::type
-	{ };
+template <>
+struct is_integral<int>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<long>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<unsigned char>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<unsigned long>
+    : public integral_true_type {};
+
+// const
+
+template <>
+struct is_integral<const bool>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const char>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const unsigned short>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const unsigned int>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const wchar_t>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const signed char>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const short>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const int>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const long>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const unsigned char>
+    : public integral_true_type {};
+
+template <>
+struct is_integral<const unsigned long>
+    : public integral_true_type {};
 }
-
 
 #endif
