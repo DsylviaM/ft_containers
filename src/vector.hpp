@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-//#include "is_integral.hpp"
+#include "is_integral.hpp"
 #include "normal_iterator.hpp"
 #include "revers_it.hpp"
 #include "lexicographical_compare.hpp"
