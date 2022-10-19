@@ -10,6 +10,7 @@
 #include "normal_iterator.hpp"
 #include "revers_it.hpp"
 #include "lexicographical_compare.hpp"
+#include "it_distance.hpp"
 
 namespace ft {
 
