@@ -2,29 +2,235 @@
 #ifndef _TREE_H
 #define _TREE_H 1
  
- //#include <bits/stl_algobase.h>
- //#include <bits/allocator.h>
- //#include <bits/stl_construct.h>
- //#include <bits/stl_function.h>
- //#include <bits/cpp_type_traits.h>
+ #include <bits/stl_algobase.h>
+ #include <bits/allocator.h>
+ #include <bits/stl_construct.h>
+ #include <bits/stl_function.h>
+ #include <bits/cpp_type_traits.h>
  
-#include <cmath>
-#include <memory>
-//#include <alloca.h>
-#include <iostream>
-#include <sstream>
 
-//#include "is_integral.hpp"
-//#include "normal_iterator.hpp"
-#include "revers_it.hpp"
-#include "lexicographical_compare.hpp"
-//#include "it_distance.hpp"
-#include "Rb_tree_node_base.hpp"
-#include "Rb_tree_iterator.hpp"
-#include "Rb_tree_const_iterator.hpp"
 
-namespace ft{
+// Red-black tree class, designed for use in implementing STL
+// associative containers (set, multiset, map, and multimap). The
+// insertion and deletion algorithms are based on those in Cormen,
+// Leiserson, and Rivest, Introduction to Algorithms (MIT Press,
+// 1990), except that
+//
+// (1) the header cell is maintained with links not only to the root
+// but also to the leftmost node of the tree, to enable constant
+// time begin(), and to the rightmost node of the tree, to enable
+// linear time performance when used with the generic set algorithms
+// (set_union, etc.)
+// 
+// (2) when a node being deleted has two children its successor node
+// is relinked into its place, rather than copied, so that the only
+// iterators invalidated are those referring to the deleted node.
 
+/*enum _Rb_tree_color { _S_red = false, _S_black = true };
+
+   struct _Rb_tree_node_base
+   {
+     typedef _Rb_tree_node_base* _Base_ptr;
+     typedef const _Rb_tree_node_base* _Const_Base_ptr;
+ 
+     _Rb_tree_color  _M_color;
+     _Base_ptr       _M_parent;
+     _Base_ptr       _M_left;
+     _Base_ptr       _M_right;
+ 
+     static _Base_ptr
+     _S_minimum(_Base_ptr __x)
+     {
+       while (__x->_M_left != 0) __x = __x->_M_left;
+       return __x;
+     }
+
+     static _Const_Base_ptr
+     _S_minimum(_Const_Base_ptr __x)
+     {
+       while (__x->_M_left != 0) __x = __x->_M_left;
+       return __x;
+     }
+ 
+     static _Base_ptr
+     _S_maximum(_Base_ptr __x)
+     {
+       while (__x->_M_right != 0) __x = __x->_M_right;
+       return __x;
+     }
+ 
+     static _Const_Base_ptr
+     _S_maximum(_Const_Base_ptr __x)
+     {
+       while (__x->_M_right != 0) __x = __x->_M_right;
+       return __x;
+     }
+   };
+ 
+   template<typename _Val>
+     struct _Rb_tree_node : public _Rb_tree_node_base
+     {
+       typedef _Rb_tree_node<_Val>* _Link_type;
+       _Val _M_value_field;
+     };
+ 
+   _Rb_tree_node_base*
+   _Rb_tree_increment(_Rb_tree_node_base* __x);
+ 
+   const _Rb_tree_node_base*
+   _Rb_tree_increment(const _Rb_tree_node_base* __x);
+ 
+   _Rb_tree_node_base*
+   _Rb_tree_decrement(_Rb_tree_node_base* __x);
+ 
+   const _Rb_tree_node_base*
+   _Rb_tree_decrement(const _Rb_tree_node_base* __x);
+ 
+   template<typename _Tp>
+     struct _Rb_tree_iterator
+     {
+       typedef _Tp  value_type;
+       typedef _Tp& reference;
+       typedef _Tp* pointer;
+ 
+       typedef bidirectional_iterator_tag iterator_category;
+       typedef ptrdiff_t                  difference_type;
+ 
+       typedef _Rb_tree_iterator<_Tp>        _Self;
+       typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;
+       typedef _Rb_tree_node<_Tp>*           _Link_type;
+ 
+       _Rb_tree_iterator()
+       : _M_node() { }
+ 
+       explicit
+       _Rb_tree_iterator(_Link_type __x)
+       : _M_node(__x) { }
+ 
+       reference
+       operator*() const
+       { return static_cast<_Link_type>(_M_node)->_M_value_field; }
+ 
+       pointer
+       operator->() const
+       { return &static_cast<_Link_type>(_M_node)->_M_value_field; }
+ 
+       _Self&
+       operator++()
+       {
+     _M_node = _Rb_tree_increment(_M_node);
+     return *this;
+       }
+ 
+       _Self
+       operator++(int)
+       {
+     _Self __tmp = *this;
+     _M_node = _Rb_tree_increment(_M_node);
+     return __tmp;
+       }
+ 
+       _Self&
+       operator--()
+       {
+     _M_node = _Rb_tree_decrement(_M_node);
+     return *this;
+       }
+ 
+       _Self
+       operator--(int)
+       {
+     _Self __tmp = *this;
+     _M_node = _Rb_tree_decrement(_M_node);
+     return __tmp;
+       }
+ 
+       bool
+       operator==(const _Self& __x) const
+       { return _M_node == __x._M_node; }
+ 
+       bool
+       operator!=(const _Self& __x) const
+       { return _M_node != __x._M_node; }
+ 
+       _Base_ptr _M_node;
+   };
+ 
+   template<typename _Tp>
+     struct _Rb_tree_const_iterator
+     {
+       typedef _Tp        value_type;
+       typedef const _Tp& reference;
+       typedef const _Tp* pointer;
+ 
+       typedef _Rb_tree_iterator<_Tp> iterator;
+ 
+       typedef bidirectional_iterator_tag iterator_category;
+       typedef ptrdiff_t                  difference_type;
+ 
+       typedef _Rb_tree_const_iterator<_Tp>        _Self;
+       typedef _Rb_tree_node_base::_Const_Base_ptr _Base_ptr;
+       typedef const _Rb_tree_node<_Tp>*           _Link_type;
+ 
+       _Rb_tree_const_iterator()
+       : _M_node() { }
+ 
+       explicit
+       _Rb_tree_const_iterator(_Link_type __x)
+       : _M_node(__x) { }
+ 
+       _Rb_tree_const_iterator(const iterator& __it)
+       : _M_node(__it._M_node) { }
+ 
+       reference
+       operator*() const
+       { return static_cast<_Link_type>(_M_node)->_M_value_field; }
+ 
+       pointer
+       operator->() const
+       { return &static_cast<_Link_type>(_M_node)->_M_value_field; }
+ 
+       _Self&
+       operator++()
+       {
+     _M_node = _Rb_tree_increment(_M_node);
+     return *this;
+       }
+ 
+       _Self
+       operator++(int)
+       {
+     _Self __tmp = *this;
+     _M_node = _Rb_tree_increment(_M_node);
+     return __tmp;
+       }
+ 
+       _Self&
+       operator--()
+       {
+     _M_node = _Rb_tree_decrement(_M_node);
+     return *this;
+       }
+ 
+       _Self
+       operator--(int)
+       {
+     _Self __tmp = *this;
+     _M_node = _Rb_tree_decrement(_M_node);
+     return __tmp;
+       }
+ 
+       bool
+       operator==(const _Self& __x) const
+       { return _M_node == __x._M_node; }
+ 
+       bool
+       operator!=(const _Self& __x) const
+       { return _M_node != __x._M_node; }
+ 
+       _Base_ptr _M_node;
+     };
+ */
    template<typename _Val>
      inline bool
      operator==(const _Rb_tree_iterator<_Val>& __x,
@@ -57,7 +263,7 @@ namespace ft{
  
  
    template<typename _Key, typename _Val, typename _KeyOfValue,
-            typename _Compare, typename _Alloc = std::allocator<_Val> >
+            typename _Compare, typename _Alloc = allocator<_Val> >
      class _Rb_tree
      {
        typedef typename _Alloc::template rebind<_Rb_tree_node<_Val> >::other
@@ -1284,6 +1490,6 @@ namespace ft{
        return true;
      }
  
-}
+ _GLIBCXX_END_NAMESPACE
  
  #endif
