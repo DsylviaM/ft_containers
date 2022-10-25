@@ -10,15 +10,12 @@
  
 #include <cmath>
 #include <memory>
-//#include <alloca.h>
 #include <iostream>
 #include <sstream>
 
-//#include "is_integral.hpp"
-//#include "normal_iterator.hpp"
 #include "revers_it.hpp"
 #include "lexicographical_compare.hpp"
-//#include "it_distance.hpp"
+
 #include "Rb_tree_node_base.hpp"
 #include "Rb_tree_iterator.hpp"
 #include "Rb_tree_const_iterator.hpp"
@@ -27,7 +24,7 @@
 
 namespace ft{
 
-   template<typename _Val>
+  /* template<typename _Val>
      inline bool
      operator==(const _Rb_tree_iterator<_Val>& __x,
                 const _Rb_tree_const_iterator<_Val>& __y)
@@ -55,7 +52,7 @@ namespace ft{
  
    _Rb_tree_node_base*
    _Rb_tree_rebalance_for_erase(_Rb_tree_node_base* const __z,
-                    _Rb_tree_node_base& __header);
+                    _Rb_tree_node_base& __header);*/
  
  
    template<typename _Key, typename _Val, typename _KeyOfValue,
@@ -481,7 +478,7 @@ namespace ft{
        bool
        __rb_verify() const;
      };
- 
+
    template<typename _Key, typename _Val, typename _KeyOfValue,
             typename _Compare, typename _Alloc>
      inline bool

@@ -3,10 +3,12 @@
 
 #include "iterator.hpp"
 #include "Rb_tree_node_base.hpp"
+#include "tree.hpp"
 
 namespace ft{
     
-    template<typename _Tp>
+    template<typename T,
+              typename Tree = _Rb_tree<T> >
      struct _Rb_tree_iterator
      {
        typedef _Tp  value_type;
