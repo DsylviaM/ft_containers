@@ -6,82 +6,186 @@
 #include "tree.hpp"
 
 namespace ft{
-    
-    template<typename T,
-              typename Tree = _Rb_tree<T> >
-     struct _Rb_tree_iterator
-     {
-       typedef _Tp  value_type;
-       typedef _Tp& reference;
-       typedef _Tp* pointer;
+
+template <typename T>
+struct rbt_iterator {
+
+public:
+	typedef rbt_node<T>	 node_type;
+	typedef rbt_node<T> * node_pointer;
+	
+	typedef iterator_traits<T *>					_traits_type;
+	typedef typename _traits_type::pointer 		    pointer;
+	typedef typename _traits_type::value_type      	value_type;
+	typedef typename _traits_type::reference      	reference;
+	typedef typename _traits_type::difference_type 	difference_type;
+	typedef bidirectional_iterator_tag 				iterator_category;
  
-       typedef bidirectional_iterator_tag iterator_category;
-       typedef ptrdiff_t                  difference_type;
- 
-       typedef _Rb_tree_iterator<_Tp>        _Self;
-       typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;
-       typedef _Rb_tree_node<_Tp>*           _Link_type;
- 
-       _Rb_tree_iterator()
-       : _M_node() { }
- 
-       explicit
-       _Rb_tree_iterator(_Link_type __x)
-       : _M_node(__x) { }
- 
-       reference
-       operator*() const
-       { return static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-       pointer
-       operator->() const
-       { return &static_cast<_Link_type>(_M_node)->_M_value_field; }
- 
-       _Self&
-       operator++()
-       {
-     _M_node = _Rb_tree_increment(_M_node);
-     return *this;
-       }
- 
-       _Self
-       operator++(int)
-       {
-     _Self __tmp = *this;
-     _M_node = _Rb_tree_increment(_M_node);
-     return __tmp;
-       }
- 
-       _Self&
-       operator--()
-       {
-     _M_node = _Rb_tree_decrement(_M_node);
-     return *this;
-       }
- 
-       _Self
-       operator--(int)
-       {
-     _Self __tmp = *this;
-     _M_node = _Rb_tree_decrement(_M_node);
-     return __tmp;
-       }
- 
-       bool
-       operator==(const _Self& __x) const
-       { return _M_node == __x._M_node; }
- 
-       bool
-       operator!=(const _Self& __x) const
-       { return _M_node != __x._M_node; }
- 
-       _Base_ptr _M_node;
-   };
- 
+private:
+	node_pointer _current;
+
+public:
+	rbt_iterator(void) : _current(NULL) { }
+
+	explicit
+	rbt_iterator(node_pointer node) : _current(node) { }
+
+	rbt_iterator(const rbt_iterator<T> &it) : _current(it.base()) {}
+
+	node_pointer
+	base(void) const {
+		return _current;
+	}
+
+	reference 
+	operator*(void) const {
+		return _current->data;
+	}
+
+	pointer
+	operator->(void) const {
+		return &(_current->data);
+	}
+
+	rbt_iterator
+	operator++(void) {
+		_current = increment(_current);
+		return *this;
+	}
+
+	rbt_iterator
+	operator--(void) {
+		_current = decrement(_current);
+		return *this;
+	}
+
+	rbt_iterator
+	operator++(int) {
+		rbt_iterator tmp = *this;
+		_current = increment(_current);
+
+		return tmp;
+	}
+
+	rbt_iterator
+	operator--(int) {
+		rbt_iterator tmp = *this;
+		_current = decrement(_current);
+
+		return tmp;
+	}
+
+	inline bool
+	operator==(const rbt_iterator<T> &rhs) const
+	{ return base() == rhs.base(); }
+
+	inline bool
+	operator!=(const rbt_iterator<T> &rhs) const
+	{ return base() != rhs.base(); }
+};
+
+template <typename T>
+struct rbt_const_iterator {
+
+public:
+	typedef rbt_iterator<T>		non_const_iterator;
+	typedef rbt_node<T>			node_type;
+	typedef rbt_node<T> * 		node_pointer;
+	
+	typedef iterator_traits<const T *>				_traits_type;
+	typedef typename _traits_type::pointer 		    pointer;
+	typedef typename _traits_type::value_type      	value_type;
+	typedef typename _traits_type::reference      	reference;
+	typedef typename _traits_type::difference_type 	difference_type;
+
+	typedef bidirectional_iterator_tag 				iterator_category;
+
+private:
+	node_pointer _current;
+
+public:
+	rbt_const_iterator(void) : _current(NULL) { }
+
+	explicit
+	rbt_const_iterator(node_pointer node) : _current(node) { }
+
+	rbt_const_iterator(const non_const_iterator &it) : _current(it.base()) { }
+
+	rbt_const_iterator(const rbt_const_iterator &it) : _current(it.base()) {}
+
+	node_pointer
+	base(void) const {
+		return _current;
+	}
+
+	reference 
+	operator*(void) const {
+		return _current->data;
+	}
+
+	pointer
+	operator->(void) const {
+		return &(_current->data);
+	}
+
+	rbt_const_iterator
+	operator++(void) {
+		_current = increment(_current);
+		return *this;
+	}
+
+	rbt_const_iterator
+	operator--(void) {
+		_current = decrement(_current);
+		return *this;
+	}
+
+	rbt_const_iterator
+	operator++(int) {
+		rbt_const_iterator tmp = *this;
+		_current = increment(_current);
+
+		return tmp;
+	}
+
+	rbt_const_iterator
+	operator--(int) {
+		rbt_const_iterator tmp = *this;
+		_current = decrement(_current);
+
+		return tmp;
+	}
+
+	inline bool
+	operator==(const rbt_const_iterator<T> &rhs) const
+	{ return base() == rhs.base(); }
+
+	inline bool
+	operator!=(const rbt_const_iterator<T> &rhs) const
+	{ return base() != rhs.base(); }
+};
 
 
+template <typename T>
+inline bool
+operator==(const rbt_iterator<T> &lhs, const rbt_const_iterator<T> &rhs)
+{ return lhs.base() == rhs.base(); }
+
+template <typename T>
+inline bool
+operator!=(const rbt_iterator<T> &lhs, const rbt_const_iterator<T> &rhs)
+{ return lhs.base() != rhs.base(); }
+
+template <typename T>
+inline bool
+operator==(const rbt_const_iterator<T> &lhs, const rbt_iterator<T> &rhs)
+{ return lhs.base() == rhs.base(); }
+
+template <typename T>
+inline bool
+operator!=(const rbt_const_iterator<T> &lhs, const rbt_iterator<T> &rhs)
+{ return lhs.base() != rhs.base(); };
 
 }
-
 
 #endif

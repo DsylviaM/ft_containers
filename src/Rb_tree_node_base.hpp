@@ -9,301 +9,166 @@ namespace ft{
 
   typedef enum _Rb_tree_color { _red, _black};
 
-   template<class T>
-   struct _Rb_tree_node_base
-   {
-      public:
-            typedef T                          data_type;
-            typedef _Rb_tree_node_base*        _Base_ptr;
-            typedef const _Rb_tree_node_base*  _Const_Base_ptr;
+	template<class T>
+	struct rbt_node {
 
-     _Rb_tree_color  _M_color;
-     _Base_ptr       _M_parent;
-     _Base_ptr       _M_left;
-     _Base_ptr       _M_right;
+		T           data;
+		rb_color    color;
+		rbt_node<T> *left;
+		rbt_node<T> *right;
+		rbt_node<T> *parent;
+		
+		rbt_node(T data)
+			: data(data)
+			, color(red)
+			, left(NULL)
+			, right(NULL)
+			, parent(NULL) { };
+	};
 
-     data_type       data;
-     bool             _is_empty;
-      
-     _Rb_tree_node_base() : 
-         data(),
-         _M_color(_black),
-         _M_parent(0),
-         _M_left(0),
-         _M_right(0),
-         _is_empty(true) { }
-        
-     _Rb_tree_node_base(data_type d, _Rb_tree_color clr, _Base_ptr prnt, _Base_ptr lft, _Base_ptr rht) : 
-         data(d),
-         _M_color(clr),
-         _M_parent(prnt),
-         _M_left(lft),
-         _M_right(rht),
-         _is_empty(false) { }
-        
-     _Rb_tree_node_base(data_type d) : 
-         data(d),
-         _M_color(_red),
-         _M_parent(NULL),
-         _M_left(NULL),
-         _M_right(NULL),
-         _is_empty(false) { }
+	template<class T>
+	bool
+	is_leaf_node(rbt_node<T> *node) {
+		return (node && node->left == NULL);
+	}
 
-     ~_Rb_tree_node_base() {}
+	template <typename T>
+	bool 
+	is_left_child(rbt_node<T> *node) {
+		return (node->parent->left == node);
+	}
 
-        bool is_empty() const {
-            return (_is_empty);
-        }
+	template <typename T>
+	bool 
+	is_right_child(rbt_node<T> *node) {
+		return !is_left_child(node);
+	}
 
-        data_type & operator*() {
-            return (data);
-        }
+	template <typename T>
+	bool
+	is_black(rbt_node<T> *node) {
+		return (node == NULL || node->color == black);
+	}
 
-        data_type * operator->() {
-            return (&data);
-        }
+	template <typename T>
+	bool
+	is_red(rbt_node<T> *node) {
+		return !is_black(node);
+	}
 
-};
+	template<class T>
+	rbt_node<T> *
+	leftmost_node(rbt_node<T> *node) {
+		
+		if (node == NULL) {
+			return NULL;
+		}
 
-template < 
-    class T, 
-    class Allocator >
-void    delete_node( _Rb_tree_node_base<T> *node, Allocator alloc = Allocator() ) {
-    alloc.destroy(node);
-    alloc.deallocate(node, 1);
-}
+		while (!is_leaf_node(node->left)) {
+			node = node->left;
+		}
+		return node;
+	}
 
-template< class T >
-bool operator==( const _Rb_tree_node_base<T> & lhs,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (lhs.data == rhs.data);
-}
+	template<class T>
+	rbt_node<T> *
+	rightmost_node(rbt_node<T> *node) {
 
-template< class T >
-bool operator==( const _Rb_tree_node_base<T> & lhs,
-                 const T & data ) {
-    return (lhs.data == data);
-}
+		if (node == NULL) {
+			return NULL;
+		}
 
-template< class T >
-bool operator==( const T & data,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (rhs == data);
-}
+		while (!is_leaf_node(node->right)) {
+			node = node->right;
+		}
+		return node;
+	}
 
-template< class T >
-bool operator<( const _Rb_tree_node_base<T>& lhs,
-                 const _Rb_tree_node_base<T>& rhs ) {
-    return (lhs.data < rhs.data);
-}
+	template<class T>
+	rbt_node<T> *
+	upmost_node(rbt_node<T> *node) {
 
-template< class T >
-bool operator<( const _Rb_tree_node_base<T> & lhs,
-                 const T & data ) {
-    return (lhs.data < data);
-}
+		while (node != NULL && node->parent != NULL) {
+			node = node->parent;
+		}
+		return node;
+	}
 
-template< class T >
-bool operator<( const T & data,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (data < rhs.data);
-}
+	template<class T>
+	rbt_node<T> *
+	upmost_right_node(rbt_node<T> *node) {
 
-template< class T >
-bool operator<=( const _Rb_tree_node_base<T>& lhs,
-                 const _Rb_tree_node_base<T>& rhs ) {
-    return (lhs.data <= rhs.data);
-}
+		if (node == NULL) {
+			return NULL;
+		}
 
-template< class T >
-bool operator<=( const _Rb_tree_node_base<T> & lhs,
-                 const T & data ) {
-    return (lhs.data <= data);
-}
+		while (node->parent != NULL && node->parent->right == node) {
+			node = node->parent;
+		}
+		node = node->parent;
+		return node;
+	}
 
-template< class T >
-bool operator<=( const T & data,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (data <= rhs.data);
-}
+	template<class T>
+	rbt_node<T> *
+	upmost_left_node(rbt_node<T> *node) {
 
-template< class T >
-bool operator>( const _Rb_tree_node_base<T>& lhs,
-                 const _Rb_tree_node_base<T>& rhs ) {
-    return (lhs.data > rhs.data);
-}
+		if (node == NULL) {
+			return NULL;
+		}
+	
+		while (node->parent != NULL && node->parent->left == node) {
+			node = node->parent;
+		}
+		node = node->parent;
+		return node;
+	}
 
-template< class T >
-bool operator>( const _Rb_tree_node_base<T> & lhs,
-                 const T & data ) {
-    return (lhs.data > data);
-}
+	template<class T>
+	rbt_node<T> *
+	increment(rbt_node<T> * node) {
 
-template< class T >
-bool operator>( const T & data,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (rhs.data > data);
-}
+		if (node == NULL) {
+			return NULL;
+		}
 
-template< class T >
-bool operator>=( const _Rb_tree_node_base<T>& lhs,
-                 const _Rb_tree_node_base<T>& rhs ) {
-    return (lhs.data >= rhs.data);
-}
+		if (is_leaf_node(node)) {
+			if (node->parent) {
+				node = leftmost_node(upmost_node(node));
+			}
+		} else if (!is_leaf_node(node->right)) {
+			node = leftmost_node(node->right);
+		} else if (node->right->parent == node) {
+			node = node->right;
+		} else {
+			node = upmost_right_node(node);
+		}
 
-template< class T >
-bool operator>=( const _Rb_tree_node_base<T> & lhs,
-                 const T & data ) {
-    return (lhs.data >= data);
-}
+		return node;
+	}
 
-template< class T >
-bool operator>=( const T & data,
-                 const _Rb_tree_node_base<T> & rhs ) {
-    return (rhs.data >= data);
-}
+	template <typename T>
+	rbt_node<T> *
+	decrement(rbt_node<T> *node) {
 
-// pair
+		if (node == NULL) {
+			return NULL;
+		}
+		
+		if (is_leaf_node(node)) {
+			if (node->parent) {
+				node = node->parent;
+			}
+		} else if (!is_leaf_node(node->left)) {
+			node = rightmost_node(node->left);
+		} else if (node == leftmost_node(upmost_node(node))) {
+			node = node->left;
+		} else {
+			node = upmost_left_node(node);
+		}
+		return node;
+	};
 
-template< class T1, class T2 >
-bool operator==( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (lhs.data.first == rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator==( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const pair<T1, T2> & data ) {
-    return (lhs.data.first == data.first);
-}
-
-template< class T1, class T2 >
-bool operator==( const pair<T1, T2> & data,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (data.first == rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator<( const _Rb_tree_node_base<pair<T1, T2> >& lhs,
-                 const _Rb_tree_node_base<pair<T1, T2> >& rhs ) {
-    return (lhs.data.first < rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator<( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const pair<T1, T2> & data ) {
-    return (lhs.data.first < data.first);
-}
-
-template< class T1, class T2 >
-bool operator<( const pair<T1, T2> & data,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (data.first < rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator<=( const _Rb_tree_node_base<pair<T1, T2> >& lhs,
-                 const _Rb_tree_node_base<pair<T1, T2> >& rhs ) {
-    return (lhs.data.first <= rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator<=( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const pair<T1, T2> & data ) {
-    return (lhs.data.first <= data.first);
-}
-
-template< class T1, class T2 >
-bool operator<=( const pair<T1, T2> & data,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (data.first <= rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator>( const _Rb_tree_node_base<pair<T1, T2> >& lhs,
-                 const _Rb_tree_node_base<pair<T1, T2> >& rhs ) {
-    return (lhs.data.first > rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator>( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const pair<T1, T2> & data ) {
-    return (lhs.data.first > data.first);
-}
-
-template< class T1, class T2 >
-bool operator>( const pair<T1, T2> & data,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (data.first > rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator>=( const _Rb_tree_node_base<pair<T1, T2> >& lhs,
-                 const _Rb_tree_node_base<pair<T1, T2> >& rhs ) {
-    return (lhs.data.first >= rhs.data.first);
-}
-
-template< class T1, class T2 >
-bool operator>=( const _Rb_tree_node_base<pair<T1, T2> > & lhs,
-                 const pair<T1, T2> & data ) {
-    return (lhs.data.first >= data.first);
-}
-
-template< class T1, class T2 >
-bool operator>=( const pair<T1, T2> & data,
-                 const _Rb_tree_node_base<pair<T1, T2> > & rhs ) {
-    return (data.first >= rhs.data.first);
-}
-
-
- /*
-     static _Base_ptr
-     _S_minimum(_Base_ptr __x)
-     {
-       while (__x->_M_left != 0) __x = __x->_M_left;
-       return __x;
-     }
-
-     static _Const_Base_ptr
-     _S_minimum(_Const_Base_ptr __x)
-     {
-       while (__x->_M_left != 0) __x = __x->_M_left;
-       return __x;
-     }
- 
-     static _Base_ptr
-     _S_maximum(_Base_ptr __x)
-     {
-       while (__x->_M_right != 0) __x = __x->_M_right;
-       return __x;
-     }
- 
-     static _Const_Base_ptr
-     _S_maximum(_Const_Base_ptr __x)
-     {
-       while (__x->_M_right != 0) __x = __x->_M_right;
-       return __x;
-     }
-   };
- 
-   template<typename _Val>
-     struct _Rb_tree_node : public _Rb_tree_node_base
-     {
-       typedef _Rb_tree_node<_Val>* _Link_type;
-       _Val _M_value_field;
-     };
- 
-   _Rb_tree_node_base*
-   _Rb_tree_increment(_Rb_tree_node_base* __x);
- 
-   const _Rb_tree_node_base*
-   _Rb_tree_increment(const _Rb_tree_node_base* __x);
- 
-   _Rb_tree_node_base*
-   _Rb_tree_decrement(_Rb_tree_node_base* __x);
- 
-   const _Rb_tree_node_base*
-   _Rb_tree_decrement(const _Rb_tree_node_base* __x);*/
 }
 
 #endif
