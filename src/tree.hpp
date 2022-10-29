@@ -1,6 +1,6 @@
 
-#ifndef _TREE_H
-#define _TREE_H 
+#ifndef _TREE_HPP
+#define _TREE_HPP 
 
 #include <sstream>  
 #include <iomanip>
