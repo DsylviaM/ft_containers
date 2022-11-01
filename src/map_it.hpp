@@ -180,7 +180,6 @@ inline bool
 operator!=(const map_const_iterator<T> &lhs, const map_iterator<T> &rhs)
 { return lhs._current != rhs._current; }
 
-};
+}
 
  #endif
- 

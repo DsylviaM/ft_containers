@@ -27,21 +27,25 @@ FLAGS 			+=	-std=c++98
 # SRC_CPP     	=	main.cpp
 # endif
 
-ifeq ($(MAKE_VECTOR),0)
-SRC_CPP     	=	test_vector.cpp
-endif
+#ifeq ($(MAKE_VECTOR),0)
+#SRC_CPP     	=	test_vector.cpp
+#endif
 
 # ifeq ($(MAKE_PAIR),0)
 # SRC_CPP     	=	test_pair.cpp
 # endif
 
-# ifeq ($(MAKE_MAP),0)
-# SRC_CPP     	=	test_map.cpp
-# endif
+ifeq ($(MAKE_MAP),0)
+SRC_CPP     	=	test_map.cpp
+endif
 
-# ifeq ($(MAKE_SET),0)
-# SRC_CPP     	=	test_set.cpp
-# endif
+ifeq ($(MAKE_map_viz),0)
+SRC_CPP     	=	vizualizator.cpp
+endif
+
+ #ifeq ($(MAKE_SET),0)
+ #SRC_CPP     	=	test_set.cpp
+ #endif
 
 # ifeq ($(MAKE_STACK),0)
 # SRC_CPP     	=	test_stack.cpp
@@ -103,6 +107,11 @@ map: ; $(MAKE) MAKE_MAP=0 all
 clean_map: ; $(MAKE) MAKE_MAP=0 clean
 fclean_map: ; $(MAKE) MAKE_MAP=0 clean ; rm -rf $(NAME)
 re_map: ; $(MAKE) MAKE_MAP=0 fclean map
+
+map_viz: ; $(MAKE) MAKE_map_viz=0 all
+clean_map_viz: ; $(MAKE) MAKE_map_viz=0 clean
+fclean_map_viz: ; $(MAKE) MAKE_map_viz=0 clean ; rm -rf $(NAME)
+re_map_viz: ; $(MAKE) MAKE_map_viz=0 fclean map_viz
 
 set: ; $(MAKE) MAKE_SET=0 all
 clean_set: ; $(MAKE) MAKE_SET=0 clean

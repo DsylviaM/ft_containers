@@ -6,17 +6,21 @@
 namespace ft {
     //template struct pair
 template<class T1, class T2> struct pair {
+    public:
+
     typedef T1 first_type;
     typedef T2 second_type;
+
+    T1 first;
+    T2 second;
+
     pair () : first(first_type()), second(second_type()) {}
     pair (const T1& V1, const T2& V2) : first(V1), second(V2) {}
 
     template<class U1, class U2>
         pair (const pair <U1, U2>& X)
         : first (X.first), second (X.second) {}
-
-    T1 first;
-    T2 second;
+    
 
     pair& operator=( const pair& other ) {
         first = other.first;
@@ -24,6 +28,12 @@ template<class T1, class T2> struct pair {
         return (*this);
         }
 };
+
+    template< class T1, class T2 >
+    pair<T1,T2> 
+        make_pair( T1 X, T2 Y ) {
+    return (pair<T1, T2>(X,Y));
+        }
 
     //pair TEMPLATE OPERATORS
     template<class T1, class T2> inline
@@ -40,7 +50,7 @@ template<class T1, class T2> struct pair {
         bool operator <(const pair<T1, T2>& X,
             const pair<T1, T2>& Y)
             {return (X.first < Y.first ||
-                !(Y.first < X. first) && X.second < Y.second); }
+                (!(Y.first < X. first) && X.second < Y.second)); }
 
     template<class T1, class T2> inline
         bool operator >( const pair<T1, T2>& X,
@@ -57,10 +67,13 @@ template<class T1, class T2> struct pair {
             const pair <T1, T2>& Y)
             {return (!(X < Y)); }
 
-    template<class T1, class T2> inline
+   
+    /*template<class T1, class T2> inline
         pair<T1, T2> make_pair(const T1& X, const T2& Y)
-        {return (pair<T1, T2>(X, Y)); 
-};
+        {return (pair<T1, T2>(X, Y)); */
+
+    
+
 }
 
 #endif

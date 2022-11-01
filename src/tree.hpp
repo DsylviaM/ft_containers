@@ -67,6 +67,20 @@ public:
 	reverse_iterator rbegin(void);
 	reverse_iterator rend(void);
 
+	/*// Iterators
+
+    iterator                root();
+    iterator                begin();
+    const_iterator          begin() const;
+    iterator                end();
+    const_iterator          end() const;
+    reverse_iterator        rbegin();
+    const_reverse_iterator  rbegin() const;
+    reverse_iterator        rend();
+    const_reverse_iterator  rend() const;*/
+
+	iterator                root(void);
+
 	const_iterator root(void) const;
 	const_iterator begin(void) const;
 	const_iterator end(void) const;
@@ -253,6 +267,12 @@ template <typename T, typename Compare, typename Alloc >
 typename rbt<T, Compare, Alloc>::const_iterator
 rbt<T, Compare, Alloc>::root(void) const {
 	return const_iterator(_root);
+}
+
+template <typename T, typename Compare, typename Alloc >
+typename rbt<T, Compare, Alloc>::iterator
+rbt<T, Compare, Alloc>::root(void) {
+	return iterator(_root);
 }
 
 
@@ -559,7 +579,7 @@ void rbt<T, Compare, Alloc>::rotate_left(node_type *node) {
     }
 
 	node->parent = rchild;
-};
+}
 
 template <typename T, typename Compare, typename Alloc >
 void rbt<T, Compare, Alloc>::rotate_right(node_type *node) {
@@ -586,7 +606,7 @@ void rbt<T, Compare, Alloc>::rotate_right(node_type *node) {
 	}
 
 	node->parent = lchild;
-};
+}
 
 template <typename T, typename Compare, typename Alloc >
 void 
@@ -608,7 +628,7 @@ rbt<T, Compare, Alloc>::insert(node_type *node) {
 	insert_balance(node);
 	_size++;
 	_leaf->parent = rightmost_node(_root);
-};
+}
 
 template <typename T, typename Compare, typename Alloc>
 void 
@@ -786,7 +806,7 @@ rbt<T, Compare, Alloc>::swap_nodes(node_type *first, node_type *second) {
 	node_type *tmpparent = first->parent;
 	node_type *tmpleft = first->left;
 	node_type *tmpright = first->right;
-	rb_color   tmpcolor = first->color;
+	_Rb_tree_color   tmpcolor = first->color;
 
 	// Changing first node
 	first->color = second->color;
@@ -957,7 +977,7 @@ rbt<T, Compare, Alloc>::post_order(node_type *node, void (*func)(iterator)) cons
 		post_order(node->right, func);
 		func(node);
 	}
-};
+}
 
 
 // Non-member comparison overloads
@@ -997,7 +1017,6 @@ operator>=(const rbt<T, Compare, Alloc> &x, const rbt<T, Compare, Alloc> &y) {
 	return !(x < y);
 }
 
-};
+}
 
- 
  #endif

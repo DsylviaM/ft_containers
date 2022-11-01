@@ -1,5 +1,5 @@
-#ifndef RB_TR_ITERATOR_HPP
-#define RB_TR_ITERATOR_HPP
+#ifndef RB_TREE_ITERATOR_HPP
+#define RB_TREE_ITERATOR_HPP
 
 #include "iterator.hpp"
 #include "Rb_tree_node_base.hpp"
@@ -184,7 +184,7 @@ operator==(const rbt_const_iterator<T> &lhs, const rbt_iterator<T> &rhs)
 template <typename T>
 inline bool
 operator!=(const rbt_const_iterator<T> &lhs, const rbt_iterator<T> &rhs)
-{ return lhs.base() != rhs.base(); };
+{ return lhs.base() != rhs.base(); }
 
 }
 

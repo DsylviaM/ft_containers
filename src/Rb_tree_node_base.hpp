@@ -1,5 +1,5 @@
-#ifndef RB_TREE_ITERATOR_HPP
-#define RB_TREE_ITERATOR_HPP
+#ifndef RB_TREE_NODE_BASE_HPP
+#define RB_TREE_NODE_BASE_HPP
 
 #include <memory>
 #include <utility.hpp>
@@ -7,23 +7,33 @@
 
 namespace ft{
 
-  typedef enum _Rb_tree_color { _red, _black};
+	 enum _Rb_tree_color { red, black};
 
 	template<class T>
 	struct rbt_node {
 
 		T           data;
-		rb_color    color;
+		_Rb_tree_color    color;
 		rbt_node<T> *left;
 		rbt_node<T> *right;
 		rbt_node<T> *parent;
+		bool        _is_empty;
 		
 		rbt_node(T data)
 			: data(data)
 			, color(red)
 			, left(NULL)
 			, right(NULL)
-			, parent(NULL) { };
+			, parent(NULL)
+			, _is_empty(false) { }
+		
+		rbt_node()
+			: data()
+			, color(black)
+			, left(0)
+			, right(0)
+			, parent(0) 
+			, _is_empty(true) { }
 	};
 
 	template<class T>
@@ -167,7 +177,7 @@ namespace ft{
 			node = upmost_left_node(node);
 		}
 		return node;
-	};
+	}
 
 }
 
