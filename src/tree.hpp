@@ -42,6 +42,7 @@ public:
 	typedef typename Alloc::template rebind<rbt_node<value_type> >::other	node_allocator_type;
 
 	friend struct rbt_visualizer;
+	friend struct visualizer_lvl;
 
 private:
 	node_allocator_type	_alloc;

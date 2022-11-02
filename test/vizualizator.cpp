@@ -2,17 +2,17 @@
 #include <iomanip>
 #include <cassert>
 
-#include "utility.hpp"
-#include "tree.hpp"
-#include "revers_it.hpp"
-#include "map_it.hpp"
+#include "../src/utility.hpp"
+#include "../src/tree.hpp"
+#include "../src/revers_it.hpp"
+#include "../src/map_it.hpp"
 #include <map>
-#include "map_compare.hpp"
-#include "less.hpp"
+#include "../src/map_compare.hpp"
+#include "../src/less.hpp"
 
-#include "map.hpp"
-#include "Rb_tree_iterator.hpp"
-#include "Rb_tree_node_base.hpp"
+#include "../src/map.hpp"
+#include "../src/Rb_tree_iterator.hpp"
+#include "../src/Rb_tree_node_base.hpp"
 
 namespace ft {
 
@@ -180,6 +180,7 @@ rbt_visualizer::visualize_lvl(rbt_node<T> *node, int lvl, bool lchild) {
 
 int main() {
 
+		
     {
         ft::rbt<int> tree;
         for (int i = 1; i < 10; i++) {
@@ -205,6 +206,14 @@ int main() {
         tree.erase(65);
         ft::rbt_visualizer rbv(tree);
     }
+		    {
+        ft::rbt<int> tree;
+        for (int i = 1; i < 40; i++) {
+            tree.insert(rand() % 100);
+        }
+        tree.erase(65);
+        
 
+    }
     return 0;
 }
