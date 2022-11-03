@@ -2,7 +2,7 @@ NAME			=   mySTL
 NAME_STL 		=	testSTL
 NAME_FT			=	testFT
 
-CPP         	=   clang++
+CPP         	=   c++
 # CPP         	=   g++
 FLAGS       	=   -g
 FLAGS       	+=  -Wpedantic
@@ -10,34 +10,34 @@ FLAGS     	    +=  -Wall -Wextra -Werror -g
 FLAGS 			+=	-std=c++98
 # FLAGS     	  =   -Wall -Wextra -Werror -g -Wpedantic -std=c++98
 
-# ifeq ($(MAKE_TEST),0)
-# SRC_CPP_STL         =	testSTL.cpp
-# SRC_CPP_FT         =	testFT.cpp
-# endif
+ #ifeq ($(MAKE_TEST),0)
+ #SRC_CPP_STL         =	testSTL.cpp
+ #SRC_CPP_FT         =	testFT.cpp
+ #endif
 
-#ifeq ($(MAKE_ENABLE_IF),0)
-#SRC_CPP     	=	test_enable_if.cpp
-#endif
+ifeq ($(MAKE_ENABLE_IF),0)
+SRC_CPP     	=	test_enable_if.cpp
+endif
 
-#ifeq ($(MAKE_ITERATOR),0)
-#SRC_CPP     	=	test_iterator.cpp
-#endif
+ifeq ($(MAKE_ITERATOR),0)
+SRC_CPP     	=	test_iterator.cpp
+endif
 
-# ifeq ($(MAKE_MAIN),0)
-# SRC_CPP     	=	main.cpp
-# endif
+ ifeq ($(MAKE_MAIN),0)
+ SRC_CPP     	=	main.cpp
+ endif
 
-#ifeq ($(MAKE_VECTOR),0)
-#SRC_CPP     	=	test_vector.cpp
-#endif
+ifeq ($(MAKE_VECTOR),0)
+SRC_CPP     	=	test_vector.cpp
+endif
 
 # ifeq ($(MAKE_PAIR),0)
 # SRC_CPP     	=	test_pair.cpp
 # endif
 
-ifeq ($(MAKE_MAP),0)
-SRC_CPP     	=	test_map.cpp
-endif
+#ifeq ($(MAKE_MAP),0)
+#SRC_CPP     	=	test_map.cpp
+#endif
 
 ifeq ($(MAKE_map_viz),0)
 SRC_CPP     	=	vizualizator.cpp
@@ -51,9 +51,9 @@ endif
 # SRC_CPP     	=	test_stack.cpp
 # endif
 
-# ifeq ($(MAKE_INTEGRAL),0)
-# SRC_CPP     	=	test_is_integral.cpp
-# endif
+ ifeq ($(MAKE_INTEGRAL),0)
+ SRC_CPP     	=	test_is_integral.cpp
+ endif
 
 SRC_FOLDER  	=   test/
 OBJ_FOLDER  	=   .obj/
