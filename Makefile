@@ -23,33 +23,33 @@ ifeq ($(MAKE_ITERATOR),0)
 SRC_CPP     	=	test_iterator.cpp
 endif
 
- ifeq ($(MAKE_MAIN),0)
- SRC_CPP     	=	main.cpp
- endif
+ifeq ($(MAKE_MAIN),0)
+SRC_CPP     	=	main.cpp
+endif
 
 ifeq ($(MAKE_VECTOR),0)
 SRC_CPP     	=	test_vector.cpp
 endif
 
-# ifeq ($(MAKE_PAIR),0)
-# SRC_CPP     	=	test_pair.cpp
-# endif
+ifeq ($(MAKE_PAIR),0)
+SRC_CPP     	=	test_pair.cpp
+endif
 
-#ifeq ($(MAKE_MAP),0)
-#SRC_CPP     	=	test_map.cpp
-#endif
+ifeq ($(MAKE_MAP),0)
+SRC_CPP     	=	test_map.cpp
+endif
 
 ifeq ($(MAKE_map_viz),0)
 SRC_CPP     	=	vizualizator.cpp
 endif
 
- #ifeq ($(MAKE_SET),0)
- #SRC_CPP     	=	test_set.cpp
- #endif
+ifeq ($(MAKE_SET),0)
+SRC_CPP     	=	test_set.cpp
+endif
 
-# ifeq ($(MAKE_STACK),0)
-# SRC_CPP     	=	test_stack.cpp
-# endif
+ifeq ($(MAKE_STACK),0)
+SRC_CPP     	=	test_stack.cpp
+endif
 
  ifeq ($(MAKE_INTEGRAL),0)
  SRC_CPP     	=	test_is_integral.cpp
