@@ -711,7 +711,7 @@ void    check_swap() {
     a1.push_back(3);
     a2.push_back(4);
     a2.push_back(5);
-    a2.push_back(6);
+   // a2.push_back(6);
  
     std::vector<int>::iterator it1 = a1.begin() + 1;
     std::vector<int>::iterator it2 = a2.begin() + 1;

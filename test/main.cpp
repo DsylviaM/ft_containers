@@ -5,11 +5,11 @@
 #include <string>
 
 #if 1 // CREATE A REAL STL EXAMPLE
-/*#include <map>
+#include <map>
 #include <stack>
 #include <vector>
 namespace ft = std;
-#else*/
+#else
 #include <map.hpp>
 #include <stack.hpp>
 #include <vector.hpp>
