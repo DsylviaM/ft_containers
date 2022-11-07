@@ -28,14 +28,23 @@ namespace ft {
 		explicit
 		normal_iterator(const T& ptr)
         : _current(ptr) { }
-
+        
         // Allow iterator to const_iterator conversion
         template<typename Iter>
         normal_iterator(
             const normal_iterator<Iter, 
-		            typename enable_if< is_same<
-                                    Iter, typename Container::pointer> ::value, Container>::type> &iter)
+		            typename enable_if< 
+                    (ft::is_same<Iter, typename _traits_type::pointer> ::value), 
+                    Container>::type> &iter)
         : _current(iter.base()) { }
+      /*  
+        // Allow iterator to const_iterator conversion
+         template<typename _Iter>
+         __normal_iterator(const __normal_iterator<_Iter,
+               typename __enable_if<
+                (std::__are_same<_Iter, typename _Container::pointer>::__value),
+               _Container>::__type>& __i)
+         : _M_current(__i.base()) { }*/
 
         // Forward iterator requirements
         reference operator*() const {

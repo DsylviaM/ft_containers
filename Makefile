@@ -3,7 +3,7 @@ NAME_STL 		=	testSTL
 NAME_FT			=	testFT
 
 CPP         	=   c++
-# CPP         	=   g++
+#CPP         	=   g++
 FLAGS       	=   -g
 FLAGS       	+=  -Wpedantic
 FLAGS     	    +=  -Wall -Wextra -Werror -g

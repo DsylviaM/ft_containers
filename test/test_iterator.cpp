@@ -8,11 +8,6 @@ void check_iterators_reverse();
 #include <cstdlib>
 #include <vector.hpp>
 
-int main(void) {
-    check_iterators();
-    return (0);
-}
-
 void check_iterators() {
     std::cout << std::endl
               << "\033[36m"
@@ -133,4 +128,9 @@ void check_iterators_reverse() {
         << "x <  z ? " << (x < z) << "  | " << (x_ft < z_ft) << '\n'       // true!
         << "x <= z ? " << (x <= z) << "  | " << (x_ft <= z_ft) << '\n'     // true
         ;
+}
+
+int main(void) {
+    check_iterators();
+    return (0);
 }

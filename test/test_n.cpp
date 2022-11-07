@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <vector.hpp>
+#include "../src/vector.hpp"
 
 void    check_constructor();
 void    check_asisgn();
@@ -51,21 +51,12 @@ void    check_constructor() {
         std::vector<int> std_vec_int(alloc);
         std::allocator<int> alloc1;
         ft::vector<int>  ft_vec_int(alloc1);
-        std_vec_int.push_back(5);
-        ft_vec_int.push_back(5);
-        //for (int i=0; i<100; i++) std_vec_int.push_back(i);
-       // for (int i=0; i<100; i++) ft_vec_int.push_back(i);
-       // std_vec_int.capacity();
-        std::cout << "**************** capacity STL: " << std_vec_int.capacity()  << std::endl;
-       // ft_vec_int.capacity();
-        std::cout << "**************** capacity FT: " << ft_vec_int.capacity() << std::endl;
-        std::cout << std_vec_int[0] << "    |  " << ft_vec_int[0] << std::endl;
+        std_vec_int.push_back(4);
+        ft_vec_int.push_back(4);
         std::cout << "\n\033[36m" << "\t\tpush_back(5) " << "\033[0m"  << std::endl;
         std::cout << "std  |  ft " << std::endl;
-        //std_vec_int.push_back(5);
-        //ft_vec_int.push_back(5);
         std::cout << std_vec_int[0] << "    |  " << ft_vec_int[0] << std::endl;
-        std::cout << "capacity: " << std_vec_int.capacity() << "   *   " << ft_vec_int.capacity() << std::endl;
+        //std::cout << std_vec_int.capacity() << "    *  " << ft_vec_int[0] << std::endl;
     }
 
     {
@@ -74,23 +65,10 @@ void    check_constructor() {
                  "\t\t\t    const T& value = T(),\n"
                  "\t\t\t    const Allocator& alloc = Allocator());" 
                  "\n\t5 elements " << "\033[0m" << std::endl;
-        std::vector<int> std_vec_int;
-        std_vec_int.push_back(5);
-        std_vec_int.push_back(1);
-
-        ft::vector<int> ft_vec_int;
-        ft_vec_int.push_back(5);
-        ft_vec_int.push_back(1);
-/*
-        vect_int.push_back(2);
-        vect_int.push_back(3);
-    
-    ft::vector<int>::iterator vect_int_iter = vect_int.begin();
-    for (; vect_int_iter != vect_int.end(); ++vect_int_iter) {
-        std::cout << *vect_int_iter << " ";
-    }*/
+        std::vector<int> std_vec_int(2);
+        ft::vector<int> ft_vec_int(2);
         std::cout << "         std  |  ft " << std::endl;
-        std::cout << "capacity: " << std_vec_int.capacity() << "   |   " << ft_vec_int.capacity() << std::endl;
+        std::cout << "capacity: " << std_vec_int.capacity() << "   *   " << ft_vec_int.capacity() << std::endl;
         std::cout << "size:     " << std_vec_int.size() << "   |   " << ft_vec_int.size() << std::endl;
         std::cout << std::endl;
     }
@@ -855,6 +833,7 @@ void    check_non_member_functions() {
 
 int main() {
     check_constructor(); // 1, 2, 3, 5
+    /*
     check_asisgn(); // 4
     check_Element_access_and_iterators(); // 6 - 14
     check_capacity(); // 15 - 19
@@ -866,5 +845,5 @@ int main() {
     check_push_back_pop_back(); // 23, 24
     check_resize(); // 25
     check_swap(); // 26
-    check_non_member_functions(); // 27-33
+    check_non_member_functions(); // 27-33*/
 }
