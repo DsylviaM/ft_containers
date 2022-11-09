@@ -652,12 +652,6 @@ void    check_push_back_pop_back() {
                                     "void pop_back( ); "
                                     << "\033[0m" << std::endl;
         vect_int.pop_back();
-        // vect_int.pop_back();
-        // vect_int.pop_back();
-        // vect_int.pop_back();
-        // vect_int.pop_back();
-        // vect_int.pop_back(); for 0
-        // vect_int.pop_back(); for empty
         vect_int_iter = vect_int.begin();
         for (; vect_int_iter != vect_int.end(); ++vect_int_iter) {
             std::cout << *vect_int_iter << " ";
@@ -673,21 +667,52 @@ void    check_resize() {
     std::cout << "\n\033[34m" << "\t25) "
                                  "void resize( size_type count, T value = T() ); "
                               << "\033[0m" << std::endl;
+
+    std::cout << "\n\033[34m" << " _____FT_____ "
+                              << "\033[0m" << std::endl;
+    
     ft::vector<int> c;
     c.push_back(1);
     c.push_back(2);
     c.push_back(3);
     std::cout << "The vector holds: ";
     print_vector(c);
+    std::cout << "Capacity: "<< c.capacity()<<std::endl;
     c.resize(5);
     std::cout << "After resize up to 5: ";
     print_vector(c);
+    std::cout << "Capacity: "<< c.capacity()<<std::endl;
     c.resize(2);
     std::cout << "After resize down to 2: ";
     print_vector(c);
-    c.resize(6, 4);
-    std::cout << "After resize up to 6 (initializer = 4): ";
+    std::cout << "Capacity: "<< c.capacity()<<std::endl;
+    c.resize(9, 4);
+    std::cout << "After resize up to 9 (initializer = 4): ";
     print_vector(c);
+    std::cout << "Capacity: "<< c.capacity()<<std::endl;
+    
+    std::cout << "\n\033[34m" << " _____STD_____ "
+                              << "\033[0m" << std::endl;
+
+    std::vector<int> f;
+    f.push_back(1);
+    f.push_back(2);
+    f.push_back(3);
+    std::cout << "The vector holds: ";
+    print_vector(f);
+    std::cout << "Capacity: "<< f.capacity()<<std::endl;
+    f.resize(5);
+    std::cout << "After resize up to 5: ";
+    print_vector(f);
+    std::cout << "Capacity: "<< f.capacity()<<std::endl;
+    f.resize(2);
+    std::cout << "After resize down to 2: ";
+    print_vector(f);
+    std::cout << "Capacity: "<< f.capacity()<<std::endl;
+    f.resize(9, 4);
+    std::cout << "After resize up to 9 (initializer = 4): ";
+    print_vector(f);
+    std::cout << "Capacity: "<< f.capacity()<<std::endl;
 }
 
 void    check_swap() {
@@ -701,7 +726,6 @@ void    check_swap() {
     a1.push_back(3);
     a2.push_back(4);
     a2.push_back(5);
-   // a2.push_back(6);
  
     std::vector<int>::iterator it1 = a1.begin() + 1;
     std::vector<int>::iterator it2 = a2.begin() + 1;
