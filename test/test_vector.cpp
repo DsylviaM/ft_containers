@@ -726,39 +726,62 @@ void    check_swap() {
     a1.push_back(3);
     a2.push_back(4);
     a2.push_back(5);
+
+    ft::vector<int> b1, b2;
+    b1.push_back(1);
+    b1.push_back(2);
+    b1.push_back(3);
+    b2.push_back(4);
+    b2.push_back(5);
  
     std::vector<int>::iterator it1 = a1.begin() + 1;
     std::vector<int>::iterator it2 = a2.begin() + 1;
+
+    ft::vector<int>::iterator it3 = b1.begin() + 1;
+    ft::vector<int>::iterator it4 = b2.begin() + 1;
  
     int& ref1 = a1.front();
     int& ref2 = a2.front();
+
+    int& ref3 = b1.front();
+    int& ref4 = b2.front();
 
     std::cout << "\n\033[36m" << "\t\tbefor swap: " << "\033[0m"  << std::endl;
     std::cout << "\t vectors: "  << std::endl;
     print_vector(a1);
     print_vector(a2);
-    std::cout << "\t *it1: " << *it1 << std::endl;
-    std::cout << "\t *it2: " << *it2 << std::endl;
-    std::cout << "\t ref1: " << ref1 << std::endl;
-    std::cout << "\t ref2: " << ref2 << std::endl;
-    std::cout << "a1 capacity: " << a1.capacity() << std::endl;
-    std::cout << "a1 size:     " << a1.size() << std::endl;
-    std::cout << "a2 capacity: " << a2.capacity() << std::endl;
-    std::cout << "a2 size:     " << a2.size() << std::endl;
+    print_vector(b1);
+    print_vector(b2);
+
+    std::cout << "\t   STD "  << "\t\t    FT " << std::endl;
+    std::cout << "\t *it1: " << *it1 << "\t | *it3: " << *it3 << std::endl;
+    std::cout << "\t *it2: " << *it2 << "\t | *it4: " << *it4 << std::endl;
+    std::cout << "\t ref1: " << ref1 << "\t | ref3: " << ref3 << std::endl;
+    std::cout << "\t ref2: " << ref2 << "\t | ref4: " << ref4 << std::endl;
+    std::cout << "a1 capacity: " << a1.capacity() << "...|b1 capacity: " << b1.capacity() << std::endl;
+    std::cout << "a1 size:     " << a1.size() << "...|b1 size:     " << b1.size() <<std::endl;
+    std::cout << "a2 capacity: " << a2.capacity() << "...|b2 capacity: " << b2.capacity()<< std::endl;
+    std::cout << "a2 size:     " << a2.size() << "...|b2 size:     " << b2.size()<<std::endl;
 
     std::cout << "\n\033[36m" << "\t\tafter swap: " << "\033[0m"  << std::endl;
     a1.swap(a2);
+    b1.swap(b2);
     std::cout << "\t vectors: "  << std::endl;
     print_vector(a1);
     print_vector(a2);
-    std::cout << "\t *it1: " << *it1 << std::endl;
-    std::cout << "\t *it2: " << *it2 << std::endl;
-    std::cout << "\t ref1: " << ref1 << std::endl;
-    std::cout << "\t ref2: " << ref2 << std::endl;
-    std::cout << "a1 capacity: " << a1.capacity() << std::endl;
-    std::cout << "a1 size:     " << a1.size() << std::endl;
-    std::cout << "a2 capacity: " << a2.capacity() << std::endl;
-    std::cout << "a2 size:     " << a2.size() << std::endl;
+    print_vector(b1);
+    print_vector(b2);
+    
+    std::cout << "\t   STD "  << "\t\t    FT " << std::endl;
+    std::cout << "\t *it1: " << *it1 << "\t | *it3: " << *it3 << std::endl;
+    std::cout << "\t *it2: " << *it2 << "\t | *it4: " << *it4 << std::endl;
+    std::cout << "\t ref1: " << ref1 << "\t | ref3: " << ref3 << std::endl;
+    std::cout << "\t ref2: " << ref2 << "\t | ref4: " << ref4 << std::endl;
+    std::cout << "a1 capacity: " << a1.capacity() << "...|b1 capacity: " << b1.capacity() << std::endl;
+    std::cout << "a1 size:     " << a1.size() << "...|b1 size:     " << b1.size() <<std::endl;
+    std::cout << "a2 capacity: " << a2.capacity() << "...|b2 capacity: " << b2.capacity()<< std::endl;
+    std::cout << "a2 size:     " << a2.size() << "...|b2 size:     " << b2.size()<<std::endl;
+    
 }
 
 void    check_non_member_functions() {
