@@ -55,14 +55,14 @@ public:
 	typedef typename iterator::difference_type     	difference_type;
 
 private:
-	//tree_type		_tree;
-	//key_compare		_comp;
-	//allocator_type	_alloc;
-
-public:
 	tree_type		_tree;
 	key_compare		_comp;
 	allocator_type	_alloc;
+
+public:
+	//tree_type		_tree;
+	//key_compare		_comp;
+	//allocator_type	_alloc;
 	map(void);
 
 	explicit map(const key_compare &comp, const allocator_type &alloc = allocator_type());

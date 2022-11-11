@@ -1,3 +1,6 @@
+#include <sys/time.h>
+#include <iomanip>
+#include <iomanip>
 #include <iostream>
 #include <vector>
 #include <vector.hpp>
@@ -891,7 +894,7 @@ void    check_non_member_functions() {
 }
 
 
-int main() {
+int vector_test() {
     check_constructor(); // 1, 2, 3, 5
     check_asisgn(); // 4
     check_Element_access_and_iterators(); // 6 - 14
@@ -904,5 +907,38 @@ int main() {
     check_push_back_pop_back(); // 23, 24
     check_resize(); // 25
     check_swap(); // 26
-    check_non_member_functions(); // 27-33
+    check_non_member_functions();
+    return(0); // 27-33
+}
+
+int main(){
+    
+    // start time
+	long int		timestap_in_mcs;
+	struct timeval	tv;
+	if (!gettimeofday(&tv, NULL))
+	{
+		timestap_in_mcs = tv.tv_sec * 1000000 + tv.tv_usec;
+	} else {
+		std::cerr << "Error: gettimeofday error " << std::endl;
+		return (1);
+	}
+	std::cout << std::endl;
+
+    vector_test();
+	std::cout << std::endl;
+
+    long int vector_time;
+	if (!gettimeofday(&tv, NULL))
+	{
+        vector_time = (tv.tv_sec * 1000000 + tv.tv_usec) - timestap_in_mcs;
+	} else {
+		std::cerr << "Error: gettimeofday error " << std::endl;
+		return (1);
+	}
+	std::cout << std::endl;
+
+    std::cout << ::std::setw(40) << "The vector was completed for: " 
+            << vector_time
+            << " microseconds " << std::endl;
 }
