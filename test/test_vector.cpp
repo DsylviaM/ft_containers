@@ -771,7 +771,7 @@ void    check_swap() {
     print_vector(a2);
     print_vector(b1);
     print_vector(b2);
-    
+
     std::cout << "\t   STD "  << "\t\t    FT " << std::endl;
     std::cout << "\t *it1: " << *it1 << "\t | *it3: " << *it3 << std::endl;
     std::cout << "\t *it2: " << *it2 << "\t | *it4: " << *it4 << std::endl;
@@ -795,15 +795,17 @@ void    check_non_member_functions() {
                  "\t operator>= \n"
                  "\t swap \n"
                  "\033[0m" << std::endl;
+                 
+                 //A vector is an ordered sequence of objects of the same type
     ft::vector<std::string>    vect1;
-    vect1.push_back("It's ");
-    vect1.push_back("a ");
-    vect1.push_back("beautiful ");
-    vect1.push_back("life, ");
-    vect1.push_back("oh ");
-    vect1.push_back("oh ");
-    vect1.push_back("oh ");
-    vect1.push_back("oh ");
+    vect1.push_back("A vector ");
+    vect1.push_back("is an ordered ");
+    vect1.push_back("sequence ");
+    vect1.push_back("of objects ");
+    vect1.push_back("of ");
+    vect1.push_back("the ");
+    vect1.push_back("same ");
+    vect1.push_back("type ");
     ft::vector<std::string>    vect2(vect1);
     std::cout << std::boolalpha;
     vect2.reserve(vect2.capacity() + 10);
@@ -863,28 +865,28 @@ void    check_non_member_functions() {
                                  "\t\t void swap( std::vector<T,Alloc>& lhs,\n"
                                  "\t\t std::vector<T,Alloc>& rhs );"
                               << "\033[0m" << std::endl;
-    std::vector<int> alice;
-    alice.push_back(1);
-    alice.push_back(2);
-    alice.push_back(3);
-    std::vector<int> bob;
-    bob.push_back(7);
-    bob.push_back(8);
-    bob.push_back(9);
-    bob.push_back(10);
+    ft::vector<int> eva;
+    eva.push_back(1);
+    eva.push_back(2);
+    eva.push_back(3);
+    ft::vector<int> mark;
+    mark.push_back(7);
+    mark.push_back(8);
+    mark.push_back(9);
+    mark.push_back(10);
 
     std::cout << "\n\033[36m" << "befor SWAP " << "\033[0m"  << std::endl;
-    std::cout << "alice: ";
-    print_vector(alice);
-    std::cout << "bob:   ";
-    print_vector(bob);
+    std::cout << "eva: ";
+    print_vector(eva);
+    std::cout << "mark:   ";
+    print_vector(mark);
     
-    std::swap(alice, bob);
+    std::swap(eva, mark);
     std::cout << "\n\033[36m" << "after SWAP " << "\033[0m"  << std::endl;
-    std::cout << "alice: ";
-    print_vector(alice);
-    std::cout << "bob:   ";
-    print_vector(bob);
+    std::cout << "eva: ";
+    print_vector(eva);
+    std::cout << "mark:   ";
+    print_vector(mark);
     std::cout << '\n';
 }
 

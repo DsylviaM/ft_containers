@@ -34,6 +34,14 @@ namespace ft{
 			, right(0)
 			, parent(0) 
 			, _is_empty(true) { }
+
+		rbt_node(T d, _Rb_tree_color clr, rbt_node<T> prnt, rbt_node<T> lft, rbt_node<T> rht) : 
+            data(d),
+            color(clr),
+            parent(prnt),
+            left(lft),
+            right(rht),
+            _is_empty(false) { }
 	};
 
 	template<class T>

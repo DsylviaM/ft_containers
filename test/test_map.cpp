@@ -1,17 +1,21 @@
 #include <iostream>
 #include <string>
 
-/*#ifdef _CONTAINER_TESTER_STD
-namespace ft = std;
+//#ifdef _CONTAINER_TESTER_STD
+//if 1
+//namespace ft = std;
 	# include <map>
-#else
+	#include <utility>
+//#else
 	# include "map.hpp"
-#endif*/
+	#include "utility.hpp"
+//#endif
 
-#include "map.hpp"
-# include <map>
-#include "utility.hpp"
+//#include "map.hpp"
+//# include <map>
+//#include "utility.hpp"
 typedef ft::pair<int, std::string> pair;
+typedef std::pair<int, std::string> std_pair;
 
 std::ostream &operator<<(std::ostream &out, const pair &p) {
 	out << "(" << p.first << "; " << p.second << ")";
@@ -37,14 +41,23 @@ print_map(const ft::map<Key, Val>& map) {
 	print_map_content(map.begin(), map.end());
 }
 
+template <typename Key, typename Val>
 void
-map_test(void) {
+print_map_std(const std::map<Key, Val>& map) {
+	std::cout << " empty_std : " << map.empty() << std::endl; 
+	std::cout << " size_std  : " << map.size() << std::endl;
+	std::cout << " max_size_std : " << map.max_size() << std::endl;
+	print_map_content(map.begin(), map.end());
+}
+
+void map_test(void) {
 
 	std::cout << "---------- map:" << std::endl;
 
 	pair::first_type key1[] = { 1, 2, 3, 6, 5, 4, 4 };
 	const pair::first_type size1 = sizeof(key1) / sizeof(key1[0]);
-	pair::second_type val1[size1] = { "ichi", "ni", "san", "roku", "go", "yon", "shiranai" };
+
+	pair::second_type val1[size1] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 	pair p1[size1];
 	for (size_t i = 0; i < size1; i++) {
 		p1[i] = ft::make_pair(key1[i], val1[i]);
@@ -52,18 +65,18 @@ map_test(void) {
 
 	pair::first_type key2[] = { 21, 42, 84, 168, 336, 672 };
 	const pair::first_type size2 = sizeof(key2) / sizeof(key2[0]);
-	pair::second_type val2[size2] = { "nijuuichi", "yonjuuni", "hachijuuyon", "hyakurokujuuhachi", "sambyakusanjuuroku", "roppyakunanajuuni" };
+	pair::second_type val2[size2] = { "one", "two", "free", "for", "five", "six" };
 	pair p2[size2];
 	for (size_t i = 0; i < size2; i++) {
 		p2[i] = ft::make_pair(key2[i], val2[i]);
 	}
 	pair::first_type exist_key = 336;
 	pair::first_type nonexist_key = 1024;
-	pair::second_type value = "machigatta";
+	pair::second_type value = "need";
 
 	pair::first_type key3[] = { 21, 42, 84, 336, 672 };
 	const pair::first_type size3 = sizeof(key3) / sizeof(key3[0]);
-	pair::second_type val3[size3] = { "nijuuichi", "yonjuuni", "hachijuuyon", "sambyakusanjuuroku", "roppyakunanajuuni" };
+	pair::second_type val3[size3] = { "one", "two", "free", "for", "five" };
 	pair p3[size3];
 	for (size_t i = 0; i < size3; i++) {
 		p3[i] = ft::make_pair(key3[i], val3[i]);
@@ -72,16 +85,25 @@ map_test(void) {
 
 	pair::first_type key4[] = { 168, 1344, 2688 };
 	const pair::first_type size4 = sizeof(key4) / sizeof(key4[0]);
-	pair::second_type val4[size4] = { "hyakurokujuuhachi", "issensambyakuyonjuuyon", "nisenroppyakuhachijuuhachi" };
+	pair::second_type val4[size4] = { "mathermather", "fatherfather", "dadydadydadydady" };
 	pair p4[size4];
 	for (size_t i = 0; i < size4; i++) {
 		p4[i] = ft::make_pair(key4[i], val4[i]);
 	}
 
-	pair comp_a = ft::make_pair(21, "nijuuichi");
-	pair comp_b = ft::make_pair(42, "yonjuuni");
+	pair comp_a = ft::make_pair(21, "one");
+	pair comp_b = ft::make_pair(42, "two");
 
-	std::cout << " Constructors:" << std::endl;
+	std::cout << std::endl << "\033[35m" << "CHECK MAP " << "\033[0m" << std::endl;
+    std::cout << "\033[35m" << 
+                 "\tconstructor(first, last)\n"
+                 "\tcopy constructor\n" 
+                 "\toperator=\n" 
+                 "\titerators\n" 
+                 "\tcapacity\n" 
+                 "\033[0m" << std::endl;
+
+	
 	{
 		std::cout << " constructor(default):" << std::endl;
 		ft::map<pair::first_type, pair::second_type> map;
@@ -176,6 +198,16 @@ map_test(void) {
 		std::cout << std::endl;
 	}
 
+	
+    std::cout << "\033[35m" << 
+                 "\toperator[] (existing element)\n"
+                 "\toperator[] (non-existing element)\n" 
+                 "\tat (existing val)\n" 
+                 "\tat (non-existing val)\n" 
+                 "\tat const (existing element)\n" 
+				 "\tat const (non-existing element)\n"
+                 "\033[0m" << std::endl;
+
 	std::cout << "----- Element access:" << std::endl;
 
 	{
@@ -248,6 +280,16 @@ map_test(void) {
 		std::cout << std::endl;
 	}
 
+	
+    std::cout << "\033[35m" << 
+                 "\tinsert(pair)\n"
+                 "\tinsert(hint, pair)\n" 
+                 "\tinsert(first, last)\n" 
+                 "\terase(pos)\n" 
+                 "\terase(key)\n" 
+				 "\terase(first, last)\n"
+                 "\033[0m" << std::endl;
+
 	std::cout << "----- Modifiers:" << std::endl;
 	{
 		std::cout << " insert(pair):" << std::endl;
@@ -319,6 +361,11 @@ map_test(void) {
 		std::cout << std::endl;
 	}
 
+	    std::cout << "\033[35m" << 
+                 "\tswap\n"
+                 "\tclear\n" 
+                 "\033[0m" << std::endl;
+
 	{
 		std::cout << " swap:" << std::endl;		
 		ft::map<pair::first_type, pair::second_type> map(p3, p3 + size3);
@@ -344,6 +391,13 @@ map_test(void) {
 		print_map(map);
 		std::cout << std::endl;
 	}
+
+		    std::cout << "\033[35m" << 
+                 "\tkey_comp (true)\n"
+                 "\tkey_comp (false)\n" 
+                 "\tvalue_comp (true)\n" 
+                 "\tvalue_comp (false)\n" 
+                 "\033[0m" << std::endl;
 
 	std::cout << "----- Observers:" << std::endl;
 	{
@@ -374,6 +428,15 @@ map_test(void) {
 		std::cout << "  cmp( " << comp_a << "," << comp_b << " )" << (map.value_comp()(comp_b, comp_a));
 		std::cout << std::endl;
 	}
+
+	std::cout << "\033[35m" << 
+                 "\tfind(existing key)\n"
+                 "\tfind(non-existing key)\n" 
+                 "\tcount(existing key)\n" 
+                 "\tcount(non-existing key)\n" 
+				 "\tlower_bound(existing key)\n" 
+                 "\tlower_bound(non-existing key)...\n" 
+                 "\033[0m" << std::endl;
 
 	std::cout << "----- Operations:" << std::endl;
 	{
@@ -462,6 +525,10 @@ map_test(void) {
 		std::cout << std::endl;
 	}
 
+	std::cout << "\033[35m" << 
+                 "\tequal_range\n"
+                 "\033[0m" << std::endl;
+
 	{
 		typedef ft::map<pair::first_type, pair::second_type>::iterator iter;
 	
@@ -485,6 +552,22 @@ map_test(void) {
 		print_map_content(it.first, it.second);
 		std::cout << std::endl;
 	}
+
+		std::cout << "\033[35m" << 
+                 "\toperator== (true)\n"
+				 "\toperator== (false)\n"
+				 "\toperator!= (false)\n"
+				 "\toperator!= (true)\n"
+				 "\toperator< (false)\n"
+				 "\toperator< (true)\n"
+
+				 "\toperator<= (false)\n"
+				 "\toperator<= (true)\n"
+				 "\toperator> (true)\n"
+				 "\toperator> (false)\n"
+				 "\toperator>= (true)\n"
+				 "\toperator>= (false)\n"
+                 "\033[0m" << std::endl;
 
 	std::cout << "----- Non-member function overloads:" << std::endl;
 	{
@@ -580,6 +663,10 @@ map_test(void) {
 		std::cout << std::endl;
 	}
 
+		std::cout << "\033[35m" << 
+                 "\tswap\n"
+                 "\033[0m" << std::endl;
+
 	{
 		std::cout << " swap:" << std::endl;
 		ft::map<pair::first_type, pair::second_type> map(p3, p3 + size3);
@@ -592,7 +679,570 @@ map_test(void) {
 		print_map_content(map2.begin(), map2.end());
 	}
 }
+
+void map_test_std(void) {
+
+	std::cout << "---------- map_STL:" << std::endl;
+
+	std_pair::first_type key1[] = { 1, 2, 3, 6, 5, 4, 4 };
+	const std_pair::first_type size1 = sizeof(key1) / sizeof(key1[0]);
+	std_pair::second_type val1[size1] = { "ichi", "ni", "san", "roku", "go", "yon", "shiranai" };
+	std_pair p1[size1];
+	for (size_t i = 0; i < size1; i++) {
+		p1[i] = std::make_pair(key1[i], val1[i]);
+	}
+
+	std_pair::first_type key2[] = { 21, 42, 84, 168, 336, 672 };
+	const std_pair::first_type size2 = sizeof(key2) / sizeof(key2[0]);
+	std_pair::second_type val2[size2] = { "nijuuichi", "yonjuuni", "hachijuuyon", "hyakurokujuuhachi", "sambyakusanjuuroku", "roppyakunanajuuni" };
+	std_pair p2[size2];
+	for (size_t i = 0; i < size2; i++) {
+		p2[i] = std::make_pair(key2[i], val2[i]);
+	}
+	std_pair::first_type exist_key = 336;
+	std_pair::first_type nonexist_key = 1024;
+	std_pair::second_type value = "machigatta";
+
+	std_pair::first_type key3[] = { 21, 42, 84, 336, 672 };
+	const std_pair::first_type size3 = sizeof(key3) / sizeof(key3[0]);
+	std_pair::second_type val3[size3] = { "nijuuichi", "yonjuuni", "hachijuuyon", "sambyakusanjuuroku", "roppyakunanajuuni" };
+	std_pair p3[size3];
+	for (size_t i = 0; i < size3; i++) {
+		p3[i] = std::make_pair(key3[i], val3[i]);
+	}
+	std_pair missing3 = std::make_pair(1024, "yon");
+
+	std_pair::first_type key4[] = { 168, 1344, 2688 };
+	const std_pair::first_type size4 = sizeof(key4) / sizeof(key4[0]);
+	std_pair::second_type val4[size4] = { "hyakurokujuuhachi", "issensambyakuyonjuuyon", "nisenroppyakuhachijuuhachi" };
+	std_pair p4[size4];
+	for (size_t i = 0; i < size4; i++) {
+		p4[i] = std::make_pair(key4[i], val4[i]);
+	}
+
+	std_pair comp_a = std::make_pair(21, "nijuuichi");
+	std_pair comp_b = std::make_pair(42, "yonjuuni");
+
+	std::cout << " Constructors :" << std::endl;
+	{
+		std::cout << " constructor(default):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " constructor(first, last):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p1, p1 + size1);
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+		std::cout << "---------- mapSTD:" << std::endl;
+	{
+		std::cout << " constructor(first, last):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p1, p1 + size1);
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " copy constructor:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		std::map<std_pair::first_type, std_pair::second_type> map2(map);
+		print_map_std(map);
+		std::cout << std::endl;
+		print_map_std(map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator=:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		std::map<std_pair::first_type, std_pair::second_type> map2;
+		map2 = map;
+		print_map_std(map);
+		std::cout << std::endl;
+		print_map_std(map2);
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Iterators:" << std::endl;
+	{
+		std::cout << " begin() -> end():" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_content(map.begin(), map.end());
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " begin() const -> end() const:" << std::endl;
+		const std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_content(map.begin(), map.end());
+		std::cout << std::endl;
+	}
+	
+	{
+		std::cout << " rbegin() -> rend():" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_content(map.rbegin(), map.rend());
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " rbegin() const -> rend() const:" << std::endl;
+		const std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_content(map.rbegin(), map.rend());
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Capacity:" << std::endl;
+	{
+		std::cout << " empty (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " empty (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " size:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+
+	{
+		std::cout << " max size:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Element access:" << std::endl;
+
+	{
+		std::cout << " operator[] (existing element):" << std::endl;
+		
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		map[exist_key] = value;
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator[] (non-existing element):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		map[nonexist_key] = value;
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " at (existing val):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		map.at(exist_key) = value;
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " at (non-existing val):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		try {
+			map.at(nonexist_key);
+		} catch(const std::exception &e) {
+			std::cout << "  exception caught: OK" << std::endl;
+		}
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+
+	{
+		std::cout << " at const (existing element):" << std::endl;
+		const std::map<std_pair::first_type, std_pair::second_type>	map(p2, p2 + size2);
+		print_map_std(map);
+		map.at(exist_key);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " at const (non-existing element):" << std::endl;
+		const std::map<pair::first_type, std_pair::second_type>	map(p2, p2 + size2);
+		print_map_std(map);
+		try {
+			map.at(nonexist_key);
+		} catch(const std::exception &e) {
+			std::cout << "  exception caught: OK" << std::endl;
+		}
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Modifiers:" << std::endl;
+	{
+		std::cout << " insert(pair):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		print_map_std(map);
+		map.insert(missing3);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " insert(hint, pair):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		print_map_std(map);
+		map.insert(map.begin(), missing3);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " insert(first, last): " << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		print_map_std(map);
+		map.insert(p4, p4 + size4);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " erase(pos):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.begin();
+		++it;
+		++it;
+		++it;
+		map.erase(it);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " erase(key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		map.erase(exist_key);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " erase(first, last):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.begin();
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it2 = map.begin();
+		++it;
+		++it2;
+		++it2;
+		++it2;
+		map.erase(it, it2);
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " swap:" << std::endl;		
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		print_map_std(map);
+		std::cout << std::endl;
+		print_map_std(map2);
+		map.swap(map2);
+		std::cout << std::endl;
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+		print_map_std(map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " clear:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		map.clear();
+		std::cout << std::endl;
+		print_map_std(map);
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Observers:" << std::endl;
+	{
+		std::cout << " key_comp (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		std::cout << "  cmp( " << comp_a.first << "," << comp_b.first << " )" << (map.key_comp()(comp_a.first, comp_b.first));
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " key_comp (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		std::cout << "  cmp( " << comp_b.first << "," << comp_a.first << " )" << (map.key_comp()(comp_b.first, comp_a.first));
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " value_comp (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		std::cout << "  cmp( " << comp_a.first << "," << comp_b.first << " )" << (map.value_comp()(comp_a, comp_b));
+		std::cout << std::endl;
+	}
+
+
+	{
+		std::cout << " value_comp (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map;
+		std::cout << "  cmp( " << comp_a.first << "," << comp_b.first << " )" << (map.value_comp()(comp_b, comp_a));
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Operations:" << std::endl;
+	{
+		std::cout << " find(existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.find(exist_key);
+		std::cout << std::endl;
+		print_map_content(it, ++it);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " find(non-existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator	it = map.find(nonexist_key);
+		if (it != map.end()) {
+			std::cout << std::endl;
+			print_map_content(it, ++it);
+		}
+		std::cout << std::endl;
+	}
+
+
+	{
+		std::cout << " count(existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::cout << std::endl;
+		std::cout << " count(" << exist_key << "): " << map.count(exist_key) << std::endl;
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " count(non-existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::cout << std::endl;
+		std::cout << "  count(" << nonexist_key << "): " << map.count(nonexist_key) << std::endl;
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " lower_bound(existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.lower_bound(exist_key);
+		std::cout << std::endl;
+		print_map_content(it, ++it);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " lower_bound(non-existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.lower_bound(nonexist_key);
+		if (it != map.end()) {
+			std::cout << std::endl;
+			print_map_content(it, ++it);
+		}
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " upper_bound(existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.upper_bound(exist_key);
+		std::cout << std::endl;
+		print_map_content(it, ++it);
+		std::cout << std::endl;
+	}
+
+
+	{
+		std::cout << " upper_bound(non-existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::map<std_pair::first_type, std_pair::second_type>::iterator it = map.upper_bound(nonexist_key);
+		if (it != map.end()) {
+			std::cout << std::endl;
+			print_map_content(it, ++it);
+		}
+		std::cout << std::endl;
+	}
+
+	{
+		typedef std::map<std_pair::first_type, std_pair::second_type>::iterator iter;
+	
+		std::cout << " equal_range(existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::pair<iter, iter> it = map.equal_range(exist_key);
+		std::cout << std::endl;
+		print_map_content(it.first, it.second);
+		std::cout << std::endl;
+	}
+
+	{
+		typedef std::map<std_pair::first_type, std_pair::second_type>::iterator iter;
+
+		std::cout << " equal_range(non-existing key):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		print_map_std(map);
+		std::pair<iter, iter> it = map.equal_range(nonexist_key);
+		std::cout << std::endl;
+		print_map_content(it.first, it.second);
+		std::cout << std::endl;
+	}
+
+	std::cout << "----- Non-member function overloads:" << std::endl;
+	{
+		std::cout << " operator== (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		std::cout << "  m == m: " << (map == map);
+		std::cout << std::endl;
+	}
+	
+	{
+		std::cout << " operator== (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m1 == m2: " << (map == map2);
+		std::cout << std::endl;
+	}
+	
+	{
+		std::cout << " operator!= (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		std::cout << "  m != m: " << (map != map);
+		std::cout << std::endl;
+	}
+	
+	{
+		std::cout << " operator!= (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m1 != m2: " << (map != map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator< (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p2, p2 + size2);
+		std::cout << "  m < m: " << (map < map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator< (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m1 < m2: " << (map < map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator<= (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m2 <= m1: " << (map2 <= map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator<= (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m1 <= m2: " << (map <= map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator> (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m2 > m1:  " << (map2 > map);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator> (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m1 > m2: " << (map > map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " operator>= (true):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << "  m2 >= m1: " << (map2 >= map);
+		std::cout << std::endl;
+	}
+	
+	{
+		std::cout << " operator>= (false):" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		std::cout << " m1 >= m2: " << (map >= map2);
+		std::cout << std::endl;
+	}
+
+	{
+		std::cout << " swap:" << std::endl;
+		std::map<std_pair::first_type, std_pair::second_type> map(p3, p3 + size3);
+		std::map<std_pair::first_type, std_pair::second_type> map2(p4, p4 + size4);
+		print_map_content(map.begin(), map.end());
+		print_map_content(map2.begin(), map2.end());
+		std::cout << std::endl;
+		std::swap(map, map2);
+		print_map_content(map.begin(), map.end());
+		print_map_content(map2.begin(), map2.end());
+	}
+}
 int main() {
     map_test();
+//	map_test_std();
     return(0);
 }

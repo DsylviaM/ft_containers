@@ -270,10 +270,12 @@ rbt<T, Compare, Alloc>::root(void) const {
 	return const_iterator(_root);
 }
 
+// Iterators
+
 template <typename T, typename Compare, typename Alloc >
 typename rbt<T, Compare, Alloc>::iterator
 rbt<T, Compare, Alloc>::root(void) {
-	return iterator(_root);
+	return( iterator(_root) );
 }
 
 
@@ -295,6 +297,15 @@ bool
 rbt<T, Compare, Alloc>::empty(void) const {
 	return (_size == 0);
 }
+/*
+template< 
+    class node_type, 
+    class Alloc >
+bool
+rbt<node_type, Alloc>::
+    empty(  ) const {
+    return ( _root == NULL );
+}*/
 
 
 // Modifiers
