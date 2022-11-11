@@ -1,19 +1,12 @@
 #include <iostream>
 #include <string>
 
-//#ifdef _CONTAINER_TESTER_STD
-//if 1
-//namespace ft = std;
 	# include <map>
 	#include <utility>
-//#else
+
 	# include "map.hpp"
 	#include "utility.hpp"
-//#endif
 
-//#include "map.hpp"
-//# include <map>
-//#include "utility.hpp"
 typedef ft::pair<int, std::string> pair;
 typedef std::pair<int, std::string> std_pair;
 
