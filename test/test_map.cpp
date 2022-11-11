@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 
-	# include <map>
-	#include <utility>
+# include <map>
+#include <utility>
 
-	# include "map.hpp"
-	#include "utility.hpp"
+# include "map.hpp"
+#include "utility.hpp"
 
 typedef ft::pair<int, std::string> pair;
 typedef std::pair<int, std::string> std_pair;
@@ -74,7 +74,7 @@ void map_test(void) {
 	for (size_t i = 0; i < size3; i++) {
 		p3[i] = ft::make_pair(key3[i], val3[i]);
 	}
-	pair missing3 = ft::make_pair(1024, "yon");
+	pair missing3 = ft::make_pair(1024, "six");
 
 	pair::first_type key4[] = { 168, 1344, 2688 };
 	const pair::first_type size4 = sizeof(key4) / sizeof(key4[0]);
