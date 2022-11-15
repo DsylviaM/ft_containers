@@ -1,9 +1,7 @@
 NAME			=   mySTL
-NAME_STL 		=	testSTL
-NAME_FT			=	testFT
 
-#CPP         	=   c++
-CPP         	=   g++
+
+CPP         	=   c++
 FLAGS       	=   -g
 FLAGS       	+=  -Wpedantic
 FLAGS     	    +=  -Wall -Wextra -Werror -g
@@ -66,10 +64,6 @@ HEAD_FOLDER 	=   src/
 SRC         	=   $(addprefix $(SRC_FOLDER), $(SRC_CPP))
 OBJ         	=   $(addprefix $(OBJ_FOLDER), $(SRC_CPP:.cpp=.o))
 
-#test: ; $(MAKE) MAKE_TEST=0 test_stl_ft
-#clean_test: ; $(MAKE) MAKE_TEST=0 clean
-#fclean_test: ; $(MAKE) MAKE_TEST=0 clean ; rm -rf $(NAME_STL) $(NAME_FT)
-#re_test: ; $(MAKE) MAKE_TEST=0 fclean test
 
 #OBJ_STL       	=   $(addprefix $(OBJ_FOLDER), $(SRC_CPP_STL:.cpp=.o))
 #OBJ_FT         	=   $(addprefix $(OBJ_FOLDER), $(SRC_CPP_FT:.cpp=.o))
