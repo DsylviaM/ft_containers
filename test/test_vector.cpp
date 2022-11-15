@@ -895,21 +895,20 @@ void    check_non_member_functions() {
 
 
 int vector_test() {
-    check_constructor(); // 1, 2, 3, 5
-    check_asisgn(); // 4
-    check_Element_access_and_iterators(); // 6 - 14
-    check_capacity(); // 15 - 19
+    check_constructor(); 
+    check_asisgn(); 
+    check_Element_access_and_iterators(); 
+    check_capacity(); 
     std::cout << std::endl << "\033[35m" << "CHECK MODIFIERS " << "\033[0m" << std::endl;
-    check_clear(); // 20  
-    check_insert_erase_21_4_and_22_2(); // 21.4, 22.2
-    check_insert_iter(); // 21.3, 21.4
-    check_insert_erase_21_1_3_and_22_1(); // 21.1, 21.3, 22.1
-    check_push_back_pop_back(); // 23, 24
-    check_resize(); // 25
-    check_swap(); // 26
+    check_clear();  
+    check_insert_erase_21_4_and_22_2(); 
+    check_insert_iter(); 
+    check_insert_erase_21_1_3_and_22_1(); /
+    check_push_back_pop_back(); 
+    check_resize(); 
+    check_swap(); 
     check_non_member_functions();
-    return(0); // 27-33
-}
+    return(0); 
 
 int main(){
     
